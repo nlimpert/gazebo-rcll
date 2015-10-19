@@ -1,0 +1,86 @@
+<?xml version="1.0" ?>
+<sdf version="1.4">
+  <world name="LLSF">
+
+    <!-- Physics, to determine the simulation speed (step size and update rate) -->
+    <physics type="ode">
+      <max_step_size>0.004</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <real_time_update_rate>300</real_time_update_rate>
+    </physics>
+
+    <gui>
+      <camera name="user camera">
+	<pose>1 -2 9.5 0 1.1 1.56</pose>
+      </camera>
+    </gui>
+
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <!-- Robotinos  -->
+
+    <!-- Light -->
+    <light name="light" type="point">
+      <cast_shadows>false</cast_shadows>
+      <pose>-12 3 1 0 0 0</pose>
+      <diffuse>127 127 127 255</diffuse>
+      <specular>25 25 25 255</specular>
+      <attenuation>
+	<range>20.0</range>
+	<linear>0.01</linear>
+	<constant>0.7</constant>
+	<quadratic>0.00</quadratic>
+      </attenuation>
+    </light>
+
+    <!-- Field  -->
+    <include>
+      <uri>model://halle</uri>
+    </include>
+
+    <include>
+      <uri>model://robotino-nr-1</uri>
+      <pose>3 1 0 0 0 1.57</pose>
+    </include>
+
+    <include>
+      <uri>model://shelf_box</uri>
+      <pose>4 2 0 0 0 0</pose>
+    </include>
+    <include>
+      <name>tag_01</name>
+      <uri>model://tag</uri>
+      <pose>3.975 2.175 0.54 1.57 0 3.14</pose>
+    </include>
+    <include>
+      <name>puck1</name>
+      <uri>model://workpiece_base</uri>
+      <pose>3.975 2.15 0.94 0 0 0</pose>
+    </include>
+
+    <include>
+      <uri>model://shelf_box</uri>
+      <pose>1.5 2 0 0 0 3.14</pose>
+    </include>
+    <include>
+      <name>tag_02</name>
+      <uri>model://tag</uri>
+      <pose>1.525 1.825 0.54 1.57 0 0</pose>
+    </include>
+    <include>
+      <name>puck1</name>
+      <uri>model://workpiece_base</uri>
+      <pose>1.525 1.85 0.94 0 0 0</pose>
+    </include>
+
+
+
+    <!-- Plugins for the world -->
+    <plugin name="timesync" filename="libtimesync.so" />
+  </world>
+</sdf>
