@@ -1,0 +1,120 @@
+<?xml version="1.0" ?>
+<sdf version="1.4">
+  <model name="hackathon_box">
+    <static>true</static>
+    <link name="body">
+      <pose>0 -0.1 0.01 0 0 -1.57</pose>
+      <gravity>true</gravity>
+      <visual name="bottom">
+	<pose>0 0 0.02 0 0 0</pose>
+        <geometry>
+	  <box>
+	    <size>0.2 0.3 0.04</size>
+          </box>
+        </geometry>
+        <material>
+	  <script>
+	    <uri>file://media/materials/scripts/gazebo.material</uri>
+	    <name>Gazebo/Green</name>
+	  </script>
+        </material>
+      </visual>
+      <collision name="bottom-c">
+	<pose>0 0 0.02 0 0 0</pose>
+        <geometry>
+	  <box>
+	    <size>0.2 0.3 0.04</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="left">
+	<pose>-0.1 0 0.15 0 0 0</pose>
+        <geometry>
+	  <box>
+	    <size>0.01 0.3 0.3</size>
+          </box>
+        </geometry>
+        <material>
+	  <script>
+	    <uri>file://media/materials/scripts/gazebo.material</uri>
+	    <name>Gazebo/Green</name>
+	  </script>
+        </material>
+      </visual>
+      <collision name="left-c">
+	<pose>-0.1 0 0.14 0 0 0</pose>
+        <geometry>
+	  <box>
+	    <size>0.01 0.3 0.3</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="back">
+	<pose>0 0.15 0.15 0 0 0</pose>
+        <geometry>
+	  <box>
+	    <size>0.2 0.01 0.3</size>
+          </box>
+        </geometry>
+        <material>
+	  <script>
+	    <uri>file://media/materials/scripts/gazebo.material</uri>
+	    <name>Gazebo/Green</name>
+	  </script>
+        </material>
+      </visual>
+      <collision name="back-c">
+	<pose>0 0.15 0.15 0 0 0</pose>
+        <geometry>
+	  <box>
+	    <size>0.2 0.01 0.3</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="right">
+	<pose>0.1 0 0.15 0 0 0</pose>
+        <geometry>
+	  <box>
+	    <size>0.01 0.3 0.3</size>
+          </box>
+        </geometry>
+        <material>
+	  <script>
+	    <uri>file://media/materials/scripts/gazebo.material</uri>
+	    <name>Gazebo/Green</name>
+	  </script>
+        </material>
+      </visual>
+      <collision name="right-c">
+	<pose>0.1 0 0.15 0 0 0</pose>
+        <geometry>
+	  <box>
+	    <size>0.01 0.3 0.3</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="front">
+	<pose>0 -0.15 0.15 0 0 0</pose>
+        <geometry>
+	  <box>
+	    <size>0.2 0.01 0.3</size>
+          </box>
+        </geometry>
+        <material>
+	  <script>
+	    <uri>file://media/materials/scripts/gazebo.material</uri>
+	    <name>Gazebo/Green</name>
+	  </script>
+        </material>
+      </visual>
+      <collision name="front-c">
+	<pose>0 -0.15 0.15 0 0 0</pose>
+        <geometry>
+	  <box>
+	    <size>0.2 0.01 0.3</size>
+          </box>
+        </geometry>
+      </collision>
+    </link>
+  </model>
+</sdf>
