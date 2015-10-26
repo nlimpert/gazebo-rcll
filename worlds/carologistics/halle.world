@@ -48,6 +48,7 @@
       <pose>2 0.5 0 0 0 1.57</pose>
     </include>
 
+    <!-- Shelfs -->
     <include>
       <uri>model://shelf_box</uri>
       <pose>1.5 2 0 0 0 -1.57</pose>
@@ -98,7 +99,91 @@
       <pose>5.05 2.065 0.94 0 0 0</pose>
     </include>
 
+    <include>
+      <name>hackathon_goal_box_17</name>
+      <uri>model://hackathon_goal_box</uri>
+      <pose>3.2 0.2 0 0 0 3.14</pose>
+    </include>
+    <include>
+      <name>tag_17</name>
+      <uri>model://tag</uri>
+      <pose>3.2 0.2 0.54 1.57 0 3.14</pose>
+    </include>
+    
+    <include>
+      <name>hackathon_goal_box_18</name>
+      <uri>model://hackathon_goal_box</uri>
+      <pose>3.2 5.5 0 0 0 0</pose>
+    </include>
+    <include>
+      <name>tag_18</name>
+      <uri>model://tag</uri>
+      <pose>3.2 5.5 0.54 1.57 0 0</pose>
+    </include>
 
+    <!-- Goal boxes -->
+    <include>
+      <name>hackathon_goal_box_33</name>
+      <uri>model://hackathon_goal_box</uri>
+      <pose>1 5 0 0 0 0.59</pose>
+    </include>
+    <include>
+      <name>tag_33</name>
+      <uri>model://tag</uri>
+      <pose>1 5 0.54 1.57 0 0.59</pose>
+    </include>    
+
+    <include>
+      <name>hackathon_goal_box_34</name>
+      <uri>model://hackathon_goal_box</uri>
+      <pose>5.5 5 0 0 0 -0.59</pose>
+    </include>
+    <include>
+      <name>tag_34</name>
+      <uri>model://tag</uri>
+      <pose>5.5 5 0.54 1.57 0 -0.59</pose>
+    </include>
+    
+    <include>
+      <name>hackathon_goal_box_177</name>
+      <uri>model://hackathon_goal_box</uri>
+      <pose>3.2 3 0 0 0 -1.57</pose>
+    </include>
+    <include>
+      <name>tag_177</name>
+      <uri>model://tag</uri>
+      <pose>3.2 3 0.54 1.57 0 -1.57</pose>
+    </include>
+    
+    <include>
+      <name>hackathon_goal_box_178</name>
+      <uri>model://hackathon_goal_box</uri>
+      <pose>3.3 3 0 0 0 1.57</pose>
+    </include>
+    <include>
+      <name>tag_178</name>
+      <uri>model://tag</uri>
+      <pose>3.3 3 0.54 1.57 0 1.57</pose>
+    </include>
+    
+    <!-- obstacles -->
+    <include>
+      <name>obstacle_1</name>
+      <uri>model://hackathon_obstacle</uri>
+      <pose>3.25 2 0 0 0 0.59</pose>
+    </include>
+    <include>
+      <name>obstacle_2</name>
+      <uri>model://hackathon_obstacle</uri>
+      <pose>2.3 4 0 0 0 -0.59</pose>
+    </include>
+    <include>
+      <name>obstacle_3</name>
+      <uri>model://hackathon_obstacle</uri>
+      <pose>4.4 4 0 0 0 0.59</pose>
+    </include>
+
+    
     <!-- Plugins for the world -->
     <plugin name="timesync" filename="libtimesync.so" />
   </world>
