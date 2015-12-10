@@ -65,6 +65,18 @@
       <pose>2.0 0.5 0 0 0 0</pose>
     </include>
 
+    <!-- Workpieces -->
+    <include>
+      <name>puck_bs</name>
+      <uri>model://workpiece_base</uri>
+      <pose>5.34 2.47 0.95 0 0 0</pose>
+    </include>
+    <include>
+      <name>puck_cs1</name>
+      <uri>model://workpiece_base</uri>
+      <pose>2.98 3.16 0.95 0 0 0</pose>
+    </include>
+
     <!-- obstacles -->
     <model name="obstacle">
     <static>false</static>
