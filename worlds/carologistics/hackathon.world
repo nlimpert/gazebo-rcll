@@ -9,6 +9,11 @@
       <real_time_update_rate>300</real_time_update_rate>
     </physics>
 
+    <scene>
+      <ambient>0.5 0.5 0.5 1.0</ambient>
+      <shadows>0</shadows>
+    </scene>
+    
     <gui>
       <camera name="user camera">
 	<pose>1 -2 9.5 0 1.1 1.56</pose>
@@ -51,54 +56,107 @@
     <!-- Shelfs -->
     <include>
       <uri>model://shelf_box</uri>
-      <pose>1.5 2 0 0 0 -1.57</pose>
+      <pose>0.5 1 0 0 0 -1.57</pose>
     </include>
     <include>
       <name>tag_01</name>
       <uri>model://tag</uri>
-      <pose>1.675 2.025 0.54 1.57 0 1.57</pose>
+      <pose>0.675 1.025 0.54 0 0 0</pose>
     </include>
     <include>
       <name>puck11</name>
       <uri>model://workpiece_base</uri>
-      <pose>1.65 1.935 0.94 0 0 0</pose>
+      <pose>0.65 0.935 0.94 0 0 0</pose>
     </include>
     <include>
       <name>puck12</name>
       <uri>model://workpiece_base</uri>
-      <pose>1.65 2.025 0.94 0 0 0</pose>
+      <pose>0.65 1.025 0.94 0 0 0</pose>
     </include>
     <include>
       <name>puck13</name>
       <uri>model://workpiece_base</uri>
-      <pose>1.65 2.115 0.94 0 0 0</pose>
+      <pose>0.65 1.115 0.94 0 0 0</pose>
     </include>
 
     <include>
       <uri>model://shelf_box</uri>
-      <pose>5.2 2 0 0 0 1.57</pose>
+      <pose>0.7 3 0 0 0 -1.57</pose>
     </include>
     <include>
       <name>tag_02</name>
       <uri>model://tag</uri>
-      <pose>5.025 1.975 0.54 1.57 0 -1.57</pose>
+      <pose>0.875 3.025 0.54 0 0 0</pose>
     </include>
     <include>
       <name>puck21</name>
       <uri>model://workpiece_base</uri>
-      <pose>5.05 1.885 0.94 0 0 0</pose>
+      <pose>0.85 2.935 0.94 0 0 0</pose>
     </include>
     <include>
       <name>puck22</name>
       <uri>model://workpiece_base</uri>
-      <pose>5.05 1.975 0.94 0 0 0</pose>
+      <pose>0.85 3.025 0.94 0 0 0</pose>
     </include>
     <include>
       <name>puck23</name>
       <uri>model://workpiece_base</uri>
-      <pose>5.05 2.065 0.94 0 0 0</pose>
+      <pose>0.85 3.115 0.94 0 0 0</pose>
     </include>
 
+    
+
+    <include>
+      <uri>model://shelf_box</uri>
+      <pose>5.7 1 0 0 0 1.57</pose>
+    </include>
+    <include>
+      <name>tag_97</name>
+      <uri>model://tag</uri>
+      <pose>5.525 0.975 0.54 0 0 -3.14</pose>
+    </include>
+    <include>
+      <name>puck31</name>
+      <uri>model://workpiece_base</uri>
+      <pose>5.55 0.885 0.94 0 0 0</pose>
+    </include>
+    <include>
+      <name>puck32</name>
+      <uri>model://workpiece_base</uri>
+      <pose>5.55 0.975 0.94 0 0 0</pose>
+    </include>
+    <include>
+      <name>puck33</name>
+      <uri>model://workpiece_base</uri>
+      <pose>5.55 1.065 0.94 0 0 0</pose>
+    </include>
+
+
+    <include>
+      <uri>model://shelf_box</uri>
+      <pose>5.5 3 0 0 0 1.57</pose>
+    </include>
+    <include>
+      <name>tag_98</name>
+      <uri>model://tag</uri>
+      <pose>5.325 2.975 0.54 0 0 -3.14</pose>
+    </include>
+    <include>
+      <name>puck41</name>
+      <uri>model://workpiece_base</uri>
+      <pose>5.35 2.885 0.94 0 0 0</pose>
+    </include>
+    <include>
+      <name>puck42</name>
+      <uri>model://workpiece_base</uri>
+      <pose>5.35 2.975 0.94 0 0 0</pose>
+    </include>
+    <include>
+      <name>puck43</name>
+      <uri>model://workpiece_base</uri>
+      <pose>5.35 3.065 0.94 0 0 0</pose>
+    </include>
+    
     <include>
       <name>hackathon_goal_box_17</name>
       <uri>model://hackathon_goal_box</uri>
@@ -107,7 +165,7 @@
     <include>
       <name>tag_17</name>
       <uri>model://tag</uri>
-      <pose>3.2 0.2 0.54 1.57 0 3.14</pose>
+      <pose>3.2 0.2 0.54 0 0 1.57</pose>
     </include>
     
     <include>
@@ -118,7 +176,7 @@
     <include>
       <name>tag_18</name>
       <uri>model://tag</uri>
-      <pose>3.2 5.5 0.54 1.57 0 0</pose>
+      <pose>3.2 5.5 0.54 0 0 -1.57</pose>
     </include>
 
     <!-- Goal boxes -->
@@ -130,18 +188,18 @@
     <include>
       <name>tag_33</name>
       <uri>model://tag</uri>
-      <pose>1 5 0.54 1.57 0 0.59</pose>
+      <pose>1 5 0.54 0 0 -1</pose>
     </include>    
 
     <include>
       <name>hackathon_goal_box_34</name>
       <uri>model://hackathon_goal_box</uri>
-      <pose>5.5 5 0 0 0 -0.59</pose>
+      <pose>5.5 5 0 0 0 -1.59</pose>
     </include>
     <include>
       <name>tag_34</name>
       <uri>model://tag</uri>
-      <pose>5.5 5 0.54 1.57 0 -0.59</pose>
+      <pose>5.5 5 0.54 0 0 -3.14</pose>
     </include>
     
     <include>
@@ -152,7 +210,7 @@
     <include>
       <name>tag_177</name>
       <uri>model://tag</uri>
-      <pose>3.2 3 0.54 1.57 0 -1.57</pose>
+      <pose>3.2 3 0.54 1.57 0 -3.14</pose>
     </include>
     
     <include>
@@ -163,7 +221,7 @@
     <include>
       <name>tag_178</name>
       <uri>model://tag</uri>
-      <pose>3.3 3 0.54 1.57 0 1.57</pose>
+      <pose>3.3 3 0.54 0 0 0</pose>
     </include>
     
     <!-- obstacles -->
