@@ -1,0 +1,109 @@
+<?xml version="1.0" ?>
+<sdf version="1.4">
+  <model name="box_with_shelf">
+    <static>true</static>
+    <link name="body">
+      <pose>0 0 0.01 0 0 0</pose>
+      <gravity>true</gravity>
+      <inertial>
+	<pose>0 0 0.005 0 0 0</pose>
+        <mass>50</mass>
+        <inertia>
+          <ixx>2.45</ixx>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+          <iyy>1.53125</iyy>
+          <iyz>0.0</iyz>
+          <izz>1.53125</izz>
+        </inertia>
+      </inertial>
+      <visual name="body-visual">
+	<pose>0 0 0.39 0 0 0</pose>
+        <geometry>
+	  <box>
+	    <size>0.70 0.34 0.78</size>
+          </box>
+        </geometry>
+        <material>
+	  <script>
+	    <uri>file://media/materials/scripts/gazebo.material</uri>
+	    <name>Gazebo/Yellow</name>
+	  </script>
+        </material>
+        <cast_shadows>false</cast_shadows>
+      </visual>
+      <!-- Collision Elements: -->
+      <collision name="collision_box">
+	<pose>0 0 0.39 0 0 0</pose>
+        <geometry>
+	  <box>
+	    <size>0.70 0.36 0.78</size>
+          </box>
+        </geometry>
+      </collision>
+      <!-- Shelf: -->
+      <collision name="collision_shelf">
+        <pose>-0.025 0.105 0.895 0 0 0 </pose>
+        <geometry>
+	  <box>
+	    <size>0.295 0.12 0.01</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="visual_shelf">
+        <pose>-0.025 0.105 0.895 0 0 0 </pose>
+        <cast_shadows>false</cast_shadows>
+        <geometry>
+	  <box>
+	    <size>0.295 0.12 0.01</size>
+          </box>
+        </geometry>
+        <material>
+	  <script>
+	    <uri>file://media/materials/scripts/gazebo.material</uri>
+	    <name>Gazebo/Grey</name>
+	  </script>
+        </material>
+      </visual>
+      <visual name="visual_shelf_pillar1">
+        <pose>0.125 0.105 0.84 0 0 0 </pose>
+        <cast_shadows>false</cast_shadows>
+        <geometry>       
+          <cylinder>
+            <radius>0.02</radius>
+	    <length>0.11</length>
+          </cylinder>
+        </geometry>
+        <material>
+	  <script>
+	    <uri>file://media/materials/scripts/gazebo.material</uri>
+	    <name>Gazebo/Grey</name>
+	  </script>
+        </material>
+      </visual>
+      <visual name="visual_shelf_pillar2">
+        <pose>-0.175 0.105 0.84 0 0 0 </pose>
+        <cast_shadows>false</cast_shadows>
+        <geometry>       
+          <cylinder>
+            <radius>0.02</radius>
+	    <length>0.11</length>
+          </cylinder>
+        </geometry>
+        <material>
+	  <script>
+	    <uri>file://media/materials/scripts/gazebo.material</uri>
+	    <name>Gazebo/Grey</name>
+	  </script>
+        </material>
+      </visual>
+    </link>
+
+    <!-- <link name="mps_tag_output"> -->
+    <!--   <pose>0.025 -0.175 0.54 1.57 0 0</pose> -->
+    <!-- </link> -->
+    <!-- <link name="mps_tag_input"> -->
+    <!--   <pose>0.025 0.175 0.54 1.57 0 3.14</pose> -->
+    <!-- </link> -->
+  </model>
+</sdf>

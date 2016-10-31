@@ -1,0 +1,190 @@
+<?xml version="1.0" ?>
+<sdf version="1.4">
+  <world name="LLSF">
+
+    <!-- Physics, to determine the simulation speed (step size and update rate) -->
+    <physics type="ode">
+      <max_step_size>0.004</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <real_time_update_rate>300</real_time_update_rate>
+    </physics>
+
+    <gui>
+      <camera name="user camera">
+	<pose>1 -2 9.5 0 1.1 1.56</pose>
+      </camera>
+    </gui>
+
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <!-- Robotinos  -->
+
+    <!-- Light -->
+    <light name="light" type="point">
+      <cast_shadows>false</cast_shadows>
+      <pose>0 3 5 0 0 0</pose>
+      <diffuse>127 127 127 255</diffuse>
+      <specular>25 25 25 255</specular>
+      <attenuation>
+	<range>20.0</range>
+	<linear>0.01</linear>
+	<constant>0.7</constant>
+	<quadratic>0.00</quadratic>
+      </attenuation>
+    </light>
+
+    <!-- Field  -->
+    <include>
+      <uri>model://halle</uri>
+    </include>
+
+    <include>
+      <uri>model://robotino-nr-1</uri>
+      <pose>2 0.5 0 0 0 1.57</pose>
+    </include>
+
+    <!-- Shelfs -->
+    <include>
+      <uri>model://shelf_box</uri>
+      <pose>1.5 2 0 0 0 -1.57</pose>
+    </include>
+    <include>
+      <name>tag_01</name>
+      <uri>model://tag</uri>
+      <pose>1.675 2.025 0.54 1.57 0 1.57</pose>
+    </include>
+    <include>
+      <name>puck11</name>
+      <uri>model://workpiece_base</uri>
+      <pose>1.65 1.935 0.94 0 0 0</pose>
+    </include>
+    <include>
+      <name>puck12</name>
+      <uri>model://workpiece_base</uri>
+      <pose>1.65 2.025 0.94 0 0 0</pose>
+    </include>
+    <include>
+      <name>puck13</name>
+      <uri>model://workpiece_base</uri>
+      <pose>1.65 2.115 0.94 0 0 0</pose>
+    </include>
+
+    <include>
+      <uri>model://shelf_box</uri>
+      <pose>5.2 2 0 0 0 1.57</pose>
+    </include>
+    <include>
+      <name>tag_02</name>
+      <uri>model://tag</uri>
+      <pose>5.025 1.975 0.54 1.57 0 -1.57</pose>
+    </include>
+    <include>
+      <name>puck21</name>
+      <uri>model://workpiece_base</uri>
+      <pose>5.05 1.885 0.94 0 0 0</pose>
+    </include>
+    <include>
+      <name>puck22</name>
+      <uri>model://workpiece_base</uri>
+      <pose>5.05 1.975 0.94 0 0 0</pose>
+    </include>
+    <include>
+      <name>puck23</name>
+      <uri>model://workpiece_base</uri>
+      <pose>5.05 2.065 0.94 0 0 0</pose>
+    </include>
+
+    <include>
+      <name>hackathon_goal_box_17</name>
+      <uri>model://hackathon_goal_box</uri>
+      <pose>3.2 0.2 0 0 0 3.14</pose>
+    </include>
+    <include>
+      <name>tag_17</name>
+      <uri>model://tag</uri>
+      <pose>3.2 0.2 0.54 1.57 0 3.14</pose>
+    </include>
+    
+    <include>
+      <name>hackathon_goal_box_18</name>
+      <uri>model://hackathon_goal_box</uri>
+      <pose>3.2 5.5 0 0 0 0</pose>
+    </include>
+    <include>
+      <name>tag_18</name>
+      <uri>model://tag</uri>
+      <pose>3.2 5.5 0.54 1.57 0 0</pose>
+    </include>
+
+    <!-- Goal boxes -->
+    <include>
+      <name>hackathon_goal_box_33</name>
+      <uri>model://hackathon_goal_box</uri>
+      <pose>1 5 0 0 0 0.59</pose>
+    </include>
+    <include>
+      <name>tag_33</name>
+      <uri>model://tag</uri>
+      <pose>1 5 0.54 1.57 0 0.59</pose>
+    </include>    
+
+    <include>
+      <name>hackathon_goal_box_34</name>
+      <uri>model://hackathon_goal_box</uri>
+      <pose>5.5 5 0 0 0 -0.59</pose>
+    </include>
+    <include>
+      <name>tag_34</name>
+      <uri>model://tag</uri>
+      <pose>5.5 5 0.54 1.57 0 -0.59</pose>
+    </include>
+    
+    <include>
+      <name>hackathon_goal_box_177</name>
+      <uri>model://hackathon_goal_box</uri>
+      <pose>3.2 3 0 0 0 -1.57</pose>
+    </include>
+    <include>
+      <name>tag_177</name>
+      <uri>model://tag</uri>
+      <pose>3.2 3 0.54 1.57 0 -1.57</pose>
+    </include>
+    
+    <include>
+      <name>hackathon_goal_box_178</name>
+      <uri>model://hackathon_goal_box</uri>
+      <pose>3.3 3 0 0 0 1.57</pose>
+    </include>
+    <include>
+      <name>tag_178</name>
+      <uri>model://tag</uri>
+      <pose>3.3 3 0.54 1.57 0 1.57</pose>
+    </include>
+    
+    <!-- obstacles -->
+    <include>
+      <name>obstacle_1</name>
+      <uri>model://hackathon_obstacle</uri>
+      <pose>3.25 2 0 0 0 0.59</pose>
+    </include>
+    <include>
+      <name>obstacle_2</name>
+      <uri>model://hackathon_obstacle</uri>
+      <pose>2.3 4 0 0 0 -0.59</pose>
+    </include>
+    <include>
+      <name>obstacle_3</name>
+      <uri>model://hackathon_obstacle</uri>
+      <pose>4.4 4 0 0 0 0.59</pose>
+    </include>
+
+    
+    <!-- Plugins for the world -->
+    <plugin name="timesync" filename="libtimesync.so" />
+  </world>
+</sdf>
