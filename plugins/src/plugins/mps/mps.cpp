@@ -72,7 +72,6 @@ Mps::Mps(physics::ModelPtr _parent, sdf::ElementPtr)
   topic_puck_command_ = config->get_string("plugins/mps/topic_puck_command").c_str();
   topic_puck_command_result_ = config->get_string("plugins/mps/topic_puck_command_result").c_str();
   topic_joint_ = config->get_string("plugins/mps/topic_joint").c_str();
-
   
   // Listen to the update event. This event is broadcast every
   // simulation iteration.
@@ -249,7 +248,6 @@ void Mps::grabTag(std::string link_name, std::string tag_name, gazebo::physics::
   joint->SetLowStop( 0, gazebo::math::Angle( 0.0f ) );
 #endif
 
-
   // printf("MPS %s: attached tag %s\n", name_.c_str(), tag_name.c_str());
 }
 
@@ -289,7 +287,6 @@ float Mps::input_y()
     + BELT_OFFSET_SIDE  * sin(mps_ori)
     + (BELT_LENGTH / 2 - PUCK_SIZE) * cos(mps_ori);
 }
-
 
 gzwrap::Pose3d Mps::input()
 { return gzwrap::Pose3d(input_x(), input_y(), BELT_HEIGHT,0,0,0); }
@@ -395,7 +392,6 @@ std::string Mps::spawn_puck(const gzwrap::Pose3d &spawn_pose, gazsim_msgs::Color
     printf("Cant find workpiece_base sdf file:%s", sdf_path.c_str());
     return "";
   }
-    
 
   new_puck_msg.set_sdf(new_sdf.c_str());
   new_puck_msg.set_clone_model_name(new_name.c_str());

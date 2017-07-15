@@ -208,7 +208,6 @@ void LightControl::change_light(std::string machine_name, Color color, llsf_msgs
     }
   }
 
-
   if(state == llsf_msgs::ON)
   {
     msg.set_visible(true);

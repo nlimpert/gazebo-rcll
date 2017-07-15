@@ -193,13 +193,11 @@ void CapStation::on_instruct_machine_msg(ConstInstructMachinePtr &msg){
         return;
     }
 
-
     std::string machine_name = "NOT-SET";
     machine_name = msg->machine();
 
     std::printf("INSTRUCTION MSG FOR: %s\n", machine_name.c_str());
 }
-
 
 void CapStation::on_puck_result(ConstWorkpieceResultPtr &result)
 {
@@ -234,7 +232,6 @@ gzwrap::Pose3d CapStation::shelf_right_pose()
 {
   return get_puck_world_pose(-0.3,0, BELT_HEIGHT + 0.005);
 }
-
 
 bool CapStation::pose_in_shelf_left(const gzwrap::Pose3d &puck_pose)
 {

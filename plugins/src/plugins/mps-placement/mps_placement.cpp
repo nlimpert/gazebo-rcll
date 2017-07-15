@@ -82,18 +82,10 @@ void MpsPlacementPlugin::Reset()
  */
 void MpsPlacementPlugin::on_machine_info_msg(ConstMachineInfoPtr &msg)
 {
-
-//        printf("GOT MACHINE INFO MESSAGE in MPS PLACEMENTsize %d\n", msg->machines_size());
-
-        //printf("mplaced: %d gamestart%d\n", machines_placed_, is_game_started_);
   // don't set positions before simulation is initialized
   if(machines_placed_ || !is_game_started_ || world_->GZWRAP_SIM_TIME().Double() < WAIT_TIME_BEFORE_PLACEMENT){
     return;
   }
-
-  //remove all existing mps (is broken at the moment, deleting models with plugins seems to be buggy in Gazebo, although it is working when deleting the model in the GUI)
-  //remove_existing_mps();
-
 
   // go through all machines
   for(int i = 0; i < msg->machines_size(); i++){
@@ -119,7 +111,6 @@ void MpsPlacementPlugin::on_machine_info_msg(ConstMachineInfoPtr &msg)
     std::string zone = llsf_msgs::Zone_Name(msg->machines(i).zone());
 
     printf("%s:Calculating Position for Zone %s\n",mps_name.c_str(), zone.c_str());
-
 
     float offset_x = ZONE_WIDTH*0.5 ;
     float offset_y = ZONE_HEIGHT*0.5;
@@ -196,7 +187,6 @@ void MpsPlacementPlugin::on_machine_info_msg(ConstMachineInfoPtr &msg)
     factoryPub->Publish(spawn_mps_msg);
     placed_machines.push_back(mps_name);
   }
-
 
   if (placed_machines.size() != MPS_COUNT){
       printf("MPS-PLACEMENT: not all machineInfo messages reveived...\n");

@@ -87,8 +87,6 @@ private:
   int storage_cnt;
 
   std::string  puck_on_conveyor;
-
-
 };
 
 class Storage{

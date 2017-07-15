@@ -139,7 +139,6 @@ void RingStation::on_instruct_machine_msg(ConstInstructMachinePtr &msg){
         return;
     }
 
-
     std::string machine_name = "NOT-SET";
     machine_name = msg->machine();
 
