@@ -24,7 +24,7 @@
 #define DELIVERY_STATION_H
 
 #include "mps.h"
-
+#include <string>
 namespace gazebo
 {
 
@@ -38,6 +38,7 @@ public:
   void on_instruct_machine_msg(ConstInstructMachinePtr &msg);
 
   uint selected_gate_;
+  std::string puck_in_processing_;
 };
 
 }

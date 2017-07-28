@@ -28,6 +28,7 @@ DeliveryStation::DeliveryStation(physics::ModelPtr _parent, sdf::ElementPtr  _sd
   Mps(_parent,_sdf)
 {
   selected_gate_ = 0;
+  puck_in_processing_ = "";
 }
 
 void DeliveryStation::on_puck_msg(ConstPosePtr &msg)
@@ -35,62 +36,73 @@ void DeliveryStation::on_puck_msg(ConstPosePtr &msg)
   if(puck_in_input(msg) &&
      !is_puck_hold(msg->name()))
   {
-    physics::ModelPtr puck = world_->GZWRAP_MODEL_BY_NAME(msg->name());
-    printf("%s got puck %s for gate %i\n",this->name_.c_str(), puck->GetName().c_str(), selected_gate_);
-    bool successfull_deliver = true;
-    switch(selected_gate_)
-    {
-      case 1:
-        puck->SetWorldPose(get_puck_world_pose(0.3,-0.2));
-        break;
-      case 2:
-        puck->SetWorldPose(get_puck_world_pose(0.3,-0.1));
-        break;
-      case 3:
-        puck->SetWorldPose(get_puck_world_pose(0.3,-0.0));
-        break;
-      default:
-        printf("bad gateway for puck\n");
-        puck->SetWorldPose(get_puck_world_pose(-0.5,0.5));
-        successfull_deliver = false;
-        break;
-    }
-    set_state(State::AVAILABLE);
-    if(successfull_deliver)
-    {
-      gazsim_msgs::WorkpieceCommand cmd_msg;
-      cmd_msg.set_command(gazsim_msgs::Command::DELIVER);
-      cmd_msg.set_puck_name(msg->name());
-      if(name_[0] == 'C')
-      {
-        cmd_msg.set_team_color(gazsim_msgs::Team::CYAN);
-      }
-      else if(name_[0] == 'M')
-      {
-        cmd_msg.set_team_color(gazsim_msgs::Team::MAGENTA);
-      }
-      puck_cmd_pub_->Publish(cmd_msg);
-    }
+
+    printf("%s: got %s", name_.c_str(), msg->name().c_str());
+    puck_in_processing_= msg->name();
   }
 }
 
 void DeliveryStation::new_machine_info(ConstMachine &machine)
 {
-  selected_gate_ = machine.instruction_ds().gate();
-  printf("%s got the new gate %i\n", this->name_.c_str(), selected_gate_);
+
+  if ( machine.state() == "PREPARED"){
+     if (puck_in_processing_ != ""){
+
+       selected_gate_ = machine.instruction_ds().gate();
+       printf("%s got the new gate %i\n", this->name_.c_str(), selected_gate_);
+
+      physics::ModelPtr puck = world_->GZWRAP_MODEL_BY_NAME(puck_in_processing_);
+      printf("%s got puck %s for gate %i\n",this->name_.c_str(), puck->GetName().c_str(), selected_gate_);
+      bool successfull_deliver = true;
+      switch(selected_gate_)
+      {
+        case 1:
+          puck->SetWorldPose(get_puck_world_pose(0.3,-0.2));
+          break;
+        case 2:
+          puck->SetWorldPose(get_puck_world_pose(0.3,-0.1));
+          break;
+        case 3:
+          puck->SetWorldPose(get_puck_world_pose(0.3,-0.0));
+          break;
+        default:
+          printf("bad gateway for puck\n");
+          puck->SetWorldPose(get_puck_world_pose(-0.5,0.5));
+          successfull_deliver = false;
+          break;
+      }
+
+      set_state(State::AVAILABLE);
+      if(successfull_deliver)
+      {
+        gazsim_msgs::WorkpieceCommand cmd_msg;
+        cmd_msg.set_command(gazsim_msgs::Command::DELIVER);
+        cmd_msg.set_puck_name(puck_in_processing_);
+        if(name_[0] == 'C')
+        {
+          cmd_msg.set_team_color(gazsim_msgs::Team::CYAN);
+        }
+        else if(name_[0] == 'M')
+        {
+          cmd_msg.set_team_color(gazsim_msgs::Team::MAGENTA);
+        }
+        puck_cmd_pub_->Publish(cmd_msg);
+      }
+    }
+  }
+
 }
 
 void DeliveryStation::on_instruct_machine_msg(ConstInstructMachinePtr &msg){
 
-    //printf("MPS:GOT INSTRUCT MESSAGE\n");
+  //printf("MPS:GOT INSTRUCT MESSAGE\n");
 
-    if (msg->set() != llsf_msgs::INSTRUCT_MACHINE_DS){
-        return;
-    }
+  if (msg->set() != llsf_msgs::INSTRUCT_MACHINE_DS){
+      return;
+  }
 
-    std::string machine_name = "NOT-SET";
-    machine_name = msg->machine();
+  std::string machine_name = msg->machine();
 
-    std::printf("INSTRUCTION MSG FOR: %s\n", machine_name.c_str());
+  std::printf("INSTRUCTION MSG FOR: %s\n", machine_name.c_str());
 }
 
