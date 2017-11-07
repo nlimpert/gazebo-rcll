@@ -34,7 +34,7 @@ DeliveryStation::DeliveryStation(physics::ModelPtr _parent, sdf::ElementPtr  _sd
 void DeliveryStation::on_puck_msg(ConstPosePtr &msg)
 {
   if(puck_in_input(msg) &&
-     !is_puck_hold(msg->name()))
+     !is_puck_hold(msg->name())) // if puck on belt set state available
   {
 
     printf("%s: got %s", name_.c_str(), msg->name().c_str());
@@ -46,7 +46,10 @@ void DeliveryStation::new_machine_info(ConstMachine &machine)
 {
 
   if ( machine.state() == "PREPARED"){
-     if (puck_in_processing_ != ""){
+     
+    if (puck_in_processing_ == ""){
+      
+    }
 
        selected_gate_ = machine.instruction_ds().gate();
        printf("%s got the new gate %i\n", this->name_.c_str(), selected_gate_);
