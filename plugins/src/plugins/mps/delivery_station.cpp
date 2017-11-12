@@ -92,8 +92,6 @@ void DeliveryStation::new_machine_info(ConstMachine &machine)
         puck_cmd_pub_->Publish(cmd_msg);
       }
     }
-  }
-
 }
 
 void DeliveryStation::on_instruct_machine_msg(ConstInstructMachinePtr &msg){
