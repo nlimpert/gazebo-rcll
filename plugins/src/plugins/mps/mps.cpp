@@ -73,6 +73,9 @@ Mps::Mps(physics::ModelPtr _parent, sdf::ElementPtr)
   topic_puck_command_result_ = config->get_string("plugins/mps/topic_puck_command_result").c_str();
   topic_joint_ = config->get_string("plugins/mps/topic_joint").c_str();
 
+  slideInputBroken = false;
+  slideOutputBroken = false;
+
   
   // Listen to the update event. This event is broadcast every
   // simulation iteration.
@@ -471,4 +474,30 @@ gazebo::physics::JointPtr Mps::getJointEndingWith(physics::ModelPtr model, std::
       return joints[i];
   }
   return gazebo::physics::JointPtr();
+}
+
+void Mps::add_lock(physics::ModelPtr model)
+{
+    if(model->GetChild("puck_lock")){
+        std::cout << model->GetName() << " is already locked" << std::endl;
+    }
+    std::cout << "Adding lock for puck " << model->GetName() << " at machine " << model_->GetName() << std::endl;
+    physics::BasePtr puck_lock(new physics::Base(model));
+    puck_lock->SetName("puck_lock");
+    model->AddChild(puck_lock);
+}
+
+void Mps::remove_lock(physics::ModelPtr model)
+{
+    if (!model->GetChild("puck_lock")){
+        std::cout << model->GetName() << " is not locked" << std::endl;
+       return;
+    } 
+    model->RemoveChild("puck_lock");
+}
+
+bool Mps::is_locked(physics::ModelPtr model)
+{
+    if(model->GetChild("puck_lock")) return true;
+    return false;
 }

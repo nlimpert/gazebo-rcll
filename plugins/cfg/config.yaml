@@ -36,6 +36,13 @@ plugins:
     zone_height: 1.0
     zone_width: 1.0
 
+    #the following values are relative to zone_height/width
+    std-rand-pos-mps: 0.0 #recommended value: 0.1
+    max-rand-pos: 0.0 #recommended value: 0.5
+
+    #the following value is in degree
+    std-rand-angle-mps: 0 #recommended value: 20
+
   mps:
     #amount of pucks to listen for
     number_pucks: 20
@@ -67,10 +74,17 @@ plugins:
 
     cap-station:
       spawn_puck_time: 20
+      prob-shelf-broken: 0.0 #recommended: 0.05
+      prob-slide-input-broken: 0.0 #recommended: 0.05
+      prob-slide-output-broken: 0.0 #recommended: 0.05
+      rebreak-interval: 120.0 #after this interval new decision about broken state is made
 
     ring-station:
       topic_machine_add_base: "~/LLSFRbSim/MachineAddBase/"
       max_num_bases: 3
+      prob-slide-input-broken: 0.0 #recommended: 0.05
+      prob-slide-output-broken: 0.0 #recommended: 0.05
+      prob-add-base-broken: 0.0 #recommended: 0.05
 
     storage-station:
       slots: [000,100,200,300,400,500]
@@ -80,6 +94,10 @@ plugins:
       slot300: ["RED","BLACK"]
       slot400: ["BLACK","ORANGE","GRAY"]
       slot500: ["SILVER","BLUE","GRAY"]
+
+    base-station:
+      prob-slide-broken: 0.0 #recommended: 0.05
+      rebreak-interval: 120.0 #after this interval new decision about broken state is made
 
   puck:
     #The height of one ring
@@ -115,6 +133,8 @@ plugins:
     topic-holds-puck: "~/RobotinoSim/GripperHasPuck/"
     topic-joint: "/GripperJoints/Holding"
     radius-grab-area: 0.05
+    prob-puck-falls: 0.00 #this probability is per second, recommended value 0.01
+    prob-failing-pick-up: 0.00 #recommended value 0.04
 
   light-control:
     topic-instruct-machine: "~/LLSFRbSim/InstructMachine/"
@@ -129,3 +149,11 @@ plugins:
 
   depthcam:
     topic-pcl: "~/depthcam-pcl/"
+
+  floor-clean:
+    clean-threshold: 0.5
+    field-x-size: 7.0
+    field-y-size: 8.0
+    clean-interval: 10
+    #when true the randomly fallen pucks of the gripper are send automatically offside the field
+    floor-clean-off: true

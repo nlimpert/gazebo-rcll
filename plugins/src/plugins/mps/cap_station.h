@@ -26,6 +26,10 @@
 #include "mps.h"
 
 #define SPAWN_PUCK_TIME config->get_int("plugins/mps/cap-station/spawn_puck_time")
+#define PROB_SHELF_BROKEN config->get_float("plugins/mps/cap-station/prob-shelf-broken")
+#define PROB_CS_SLIDE_INPUT_BROKEN config->get_float("plugins/mps/cap-station/prob-slide-input-broken")
+#define PROB_CS_SLIDE_OUTPUT_BROKEN config->get_float("plugins/mps/cap-station/prob-slide-output-broken")
+#define REBREAK_CS_INTERVAL config->get_float("plugins/mps/cap-station/rebreak-interval")
 
 typedef const boost::shared_ptr<const gazsim_msgs::WorkpieceResult> ConstWorkpieceResultPtr;
 
@@ -50,7 +54,9 @@ public:
   bool pose_in_shelf_left(const gzwrap::Pose3d &puck_pose);
   bool pose_in_shelf_middle(const gzwrap::Pose3d &puck_pose);
   bool pose_in_shelf_right(const gzwrap::Pose3d &puck_pose);
-  
+
+  bool pose_in_front;
+
   physics::ModelPtr puck_in_shelf_left_;
   physics::ModelPtr puck_in_shelf_middle_;
   physics::ModelPtr puck_in_shelf_right_;
@@ -64,6 +70,19 @@ public:
   double puck_spawned_time_;
   
   void work_puck(std::string puck_name);
+private:
+  bool shelfBroken;
+  //this function generates random values to decide about the broken state of the cap_Station
+  void decide_broken_state();
+  //this function unlocks the pucks on the shelf, if necessary
+  void clean_up_shelf();
+  //this function unlocks and remove the puck in the output
+  void clean_up_output();
+  //this function removes the puck from the input
+  void clean_up_input();
+  //this function locks all pucks on the shelf of the cap station
+  void shelf_lock();
+  common::Time last_time_rebreak_;
 };
 
 }

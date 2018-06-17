@@ -25,6 +25,8 @@
 
 #include "gripper.h"
 
+#include <random>
+
 using namespace gazebo;
 
 // Register this plugin to make it available in the simulator
@@ -76,6 +78,18 @@ void Gripper::Load(physics::ModelPtr _parent, sdf::ElementPtr /*_sdf*/)
   grabJoint->SetName("gripper_grab_puck");
   grabJoint->SetModel( model_);
   // grabJoint->SetPose(gazebo::math::Vector3(0.0,0.0,0.0));
+  //
+  
+  rnd_gen_ = std::mt19937(time(0));
+  do_test_ = std::uniform_real_distribution<double>(0,1);
+  oldTime_ = model_->GetWorld()->GetSimTime();
+
+  if (FLOOR_CLEAN_OFF)
+  {
+      x_to_put_ = 0;
+      y_to_put_ = -FIELD_Y_SIZE;
+      z_to_put_ = 0.55*PUCK_HEIGHT;
+  }
 }
 
 
@@ -83,21 +97,51 @@ void Gripper::Load(physics::ModelPtr _parent, sdf::ElementPtr /*_sdf*/)
  */
 void Gripper::OnUpdate(const common::UpdateInfo & /*_info*/)
 {
-  if (last_action_rcvd_ == CLOSE)
+    common::Time newTime = model_->GetWorld()->GetSimTime();
+    double delta_t = (newTime - oldTime_).Double();
+    oldTime_ = newTime;
+  if (last_action_rcvd_ == CLOSE) 
   {
-    this->close();
+      if (test_probability(PROB_FAILING_PICK_UP))
+          //sometimes do not pick up the puck if advised to do so
+      {
+          std::cout << "Random failure: not picking up puck" << std::endl;
+      }
+      else
+      {
+          this->close();
+      }
   }
   else if (last_action_rcvd_ == OPEN)
   {
     this->open();
   }
   last_action_rcvd_ = NOTHING;
+  if (grippedPuck && test_probability(PROB_PUCK_FALLS, delta_t))
+        //sometimes let the puck fall down while walking around with it
+  {
+      physics::ModelPtr puck_to_waste = grippedPuck;
+      this->open(); 
+      if(FLOOR_CLEAN_OFF)
+      {//need to care myself about it
+          setPuckPoseOffField(puck_to_waste);
+      }
+      else 
+      {//floor_clean plugin will care about it
+          puck_to_waste->CreateLink("puck_waste");
+      }
+
+
+
+      std::cout << "Random failue: dropping puck" << std::endl;
+  }
 }
 
 /** on Gazebo reset
  */
 void Gripper::Reset()
 {
+  oldTime_ = 0;
   open();
 }
 
@@ -144,18 +188,26 @@ void Gripper::close() {
     return;
   }
 
-  grippedPuck = getNearestPuck();
-  if (!grippedPuck){
+  //not clear yet, whether this puck will be gripped
+  physics::ModelPtr potential_grippedPuck = getNearestPuck();
+  if (!potential_grippedPuck){
     printf("No Puck found in gripper.\n");
     return;
   }
+
+  //stop picking up, when puck has lock link
+  if (potential_grippedPuck->GetChild("puck_lock")){ 
+      printf("The puck is locked! Cannot pick up.\n");
+      return;
+  }
+  
+  grippedPuck = potential_grippedPuck;
 
   //teleport puck into gripper center
   setPuckPose();
 
   // link both models through a joint
   gazebo::physics::LinkPtr gripperLink = getLinkEndingWith(model_,"link");
-
   if (!gripperLink){
     std::cerr << "Link 'gripper_grab' not found in gripper model" << std::endl;
     return;
@@ -219,8 +271,8 @@ physics::ModelPtr Gripper::getNearestPuck() {
     if (fnmatch("puck*",tmp->GetName().c_str(),FNM_CASEFOLD) == 0){
       double tmpDistance = gripperPose.GZWRAP_POS.Distance(tmp->GZWRAP_WORLD_POSE().GZWRAP_POS);
       if(tmpDistance < distance){
-	distance = tmpDistance;
-	nearest = tmp;
+        distance = tmpDistance;
+        nearest = tmp;
       }
     }
   }
@@ -287,4 +339,23 @@ gazebo::physics::LinkPtr Gripper::getGripperLink()
   printf("Could not find gripper link of model %s\n", name_.c_str());
 
   return res;
+}
+
+
+bool Gripper::test_probability(double p, double delta_t)
+{
+    return test_probability(delta_t * p);//this is approximation for small delta_t and p
+}
+
+bool Gripper::test_probability(double p)
+{
+    double random = do_test_(rnd_gen_);
+    //std::cout << "p " << p << " random " << random << std::endl;
+    return random <= p;
+}
+
+void Gripper::setPuckPoseOffField(physics::ModelPtr puck)
+{
+  puck->SetWorldPose(gzwrap::Pose3d(x_to_put_,y_to_put_,z_to_put_,0,0,0,0));
+  x_to_put_ += 4.0*PUCK_SIZE;
 }
