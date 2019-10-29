@@ -81,7 +81,7 @@ void ConveyorVision::Load(physics::ModelPtr _parent, sdf::ElementPtr /*_sdf*/)
 
   //init last sent time
   last_sent_time_ = model_->GetWorld()->GZWRAP_SIM_TIME().Double();
-  this->send_interval_ = 0.05;
+  this->send_interval_ = 0.005;
 }
 
 /** Called by the world update start event
