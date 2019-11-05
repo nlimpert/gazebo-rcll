@@ -52,7 +52,8 @@ void DeliveryStation::new_machine_info(ConstMachine &machine)
     set_state(State::IDLE);
   }
   if (machine.has_instruction_ds()) {
-    selected_gate_ = machine.instruction_ds().gate();
+   // selected_gate_ = machine.instruction_ds().gate();
+    selected_gate_ = 1;
     printf("%s got the new gate %i\n", name_.c_str(), selected_gate_);
     if (puck_) {
       // We already have a puck and now have the gate info, thus we can deliver.
