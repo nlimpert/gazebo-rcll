@@ -33,6 +33,7 @@ DeliveryStation::DeliveryStation(physics::ModelPtr _parent, sdf::ElementPtr  _sd
 
 void DeliveryStation::on_puck_msg(ConstPosePtr &msg)
 {
+
   if(puck_in_input(msg) &&
      !is_puck_hold(msg->name()))
   {
@@ -42,23 +43,32 @@ void DeliveryStation::on_puck_msg(ConstPosePtr &msg)
       // We received the puck and know the gate, thus we can deliver.
       deliver();
     }
-  }
+ }
 }
 
 void DeliveryStation::new_machine_info(ConstMachine &machine)
 {
   if (machine.state() == "IDLE") {
     set_state(State::IDLE);
+    puck_ = NULL;
+    selected_gate_ = 0;
   }
-  if (machine.has_instruction_ds()) {
-   // selected_gate_ = machine.instruction_ds().gate();
-    selected_gate_ = 1;
-    printf("%s got the new gate %i\n", name_.c_str(), selected_gate_);
-    if (puck_) {
-      // We already have a puck and now have the gate info, thus we can deliver.
-      deliver();
-    }
+
+  if (machine.state() == "BROKEN") {
+      puck_ = NULL;
+      selected_gate_ = 0;
   }
+
+  if (machine.state() == "PREPARED"){
+      if (machine.has_instruction_ds()){
+          // selected_gate_ = machine.instruction_ds().gate();
+          selected_gate_ = 1;
+          printf("%s got the new gate %i\n", name_.c_str(), selected_gate_);
+          // We already have a puck and now have the gate info, thus we can deliver.
+          if (puck_)   deliver();
+      }
+  }
+
 }
 
 /** Send delivery information to the refbox and move the puck.
@@ -69,12 +79,11 @@ void DeliveryStation::new_machine_info(ConstMachine &machine)
  */
 void DeliveryStation::deliver()
 {
-
-  set_state(State::AVAILABLE);
   if (!selected_gate_ || !puck_) {
     // Gate is 0 (no prepare msg received yet) or no puck in the machine.
     return;
   }
+  set_state(State::AVAILABLE);
   switch(selected_gate_)
   {
     case 1:
